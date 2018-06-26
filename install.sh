@@ -40,6 +40,11 @@ install_puppet() {
     fi
 }
 
+install_module() {
+  module_name=${1:?}
+  ${puppet:?} module install ${module_name:?}
+}
+
 run_puppet() {
   ${r10k:?} deploy environment -pv
   ${puppet:?} apply --modulepath /etc/puppetlabs/code/environments/production/modules/ /etc/puppetlabs/code/environments/production/site.pp
@@ -58,6 +63,8 @@ if [ "${1}" = "run" ]; then
     run_puppet
     exit $?
 fi
+
+install_module puppet/r10k
 
 ${puppet:?} apply -e "
 class { 'r10k':
