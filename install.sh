@@ -23,7 +23,7 @@ install_puppet() {
     if command_exists dpkg; then
         source /etc/os-release
         codename=$(lsb_release -c | cut -f2)
-        release_file="puppet5-release-${codename:?}.deb"
+        release_file="puppet-release-${codename:?}.deb"
         wget "https://apt.puppetlabs.com/${release_file:?}"
         dpkg -i ${release_file:?}
         rm ${release_file:?}
@@ -31,8 +31,8 @@ install_puppet() {
         apt-get install puppet-agent -y
     elif command_exists yum; then
         source /etc/os-release
-        release_file="puppet5-release-el-${VERSION_ID:?}.noarch.rpm"
-        rpm -Uvh "https://yum.puppetlabs.com/${release_file:?}"
+        release_file="puppet-release-el-${VERSION_ID:?}.noarch.rpm"
+        rpm -Uvh "https://yum.puppetlabs.com/puppet/${release_file:?}"
         yum install puppet-agent -y
     else
       echo "Unsupported platform :("
