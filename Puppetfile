@@ -20,7 +20,7 @@ mod 'puppetlabs/inifile' '2.2.2'
 mod 'puppetlabs/vcsrepo' '2.3.0'
 mod 'puppetlabs/git', '0.5.0'
 mod 'gentoo/portage', '2.3.0'
-mod 'puppetlabs-concat', '4.2.1'
+mod 'puppetlabs/concat', '4.2.1'
 
 ################################################################################
 ##  Add additional puppet modules below
