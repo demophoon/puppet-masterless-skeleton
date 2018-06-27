@@ -8,7 +8,7 @@ include profiles::masterless
 ## Add custom classification below
 ################################################################################
 node default {
-  notify {'Please add classification to /etc/puppetlabs/code/environments/production/site.pp':
+  notify {'Please add classification to the site.pp file in your control repo.':
     loglevel => warning,
   }
 }
