@@ -5,7 +5,7 @@ include profiles::masterless
 
 
 ################################################################################
-## Add custom classification below
+## Add includes and/or nodes below 
 ################################################################################
 node default {
   notify {'Please add classification to the site.pp file in your control repo.':
