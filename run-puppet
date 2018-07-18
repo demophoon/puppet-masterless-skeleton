@@ -1,17 +1,19 @@
 #!/bin/bash -eu
 
-script=$(basename $0)
+script=$(basename "$0")
 usage="Usage:
   $script [-n][-c <control-repo>]
 
 Notes:
-  root permissions are required. Best to run with 'sudo'
+  root permissions are required. Best run with 'sudo'
   The environment variable CONTROL_REPO can be used in place of the '-c'
     argument.
+  The -n flag prevents initialization of r10k. Useful (but not required)
+    if r10k has already been initialized.
 "
 
 control_repo=${CONTROL_REPO:-}
-r10k_fetch=true
+r10k_initialize=true
 puppet=/opt/puppetlabs/puppet/bin/puppet
 r10k=/opt/puppetlabs/puppet/bin/r10k
 
@@ -26,8 +28,8 @@ function install_puppet() {
     codename=$(lsb_release --codename | cut --fields=2)
     release_file="puppet-release-$codename.deb"
     wget https://apt.puppetlabs.com/release_file
-    dpkg --install $release_file
-    rm $release_file
+    dpkg --install "$release_file"
+    rm "$release_file"
     apt-get update
     apt-get install puppet-agent --yes
   elif command_exists yum; then
@@ -59,7 +61,7 @@ while getopts ":c:hn" option; do
     h|\?) echo "$usage" 1>&2
        exit 0
        ;;
-    n) r10k_fetch=false
+    n) r10k_initialize=false
        ;;
     :) echo "$script: ERROR -$OPTARG requires an argument" 1>&2
        exit 1
@@ -78,9 +80,9 @@ if ! command_exists /opt/puppetlabs/puppet/bin/puppet; then
   install_puppet
 fi
 
-if [ $r10k_fetch = true ]; then
+if [ $r10k_initialize = true ]; then
   if [ -z "$control_repo" ]; then
-    echo "$script: ERROR control_repo is not set. Use '-c' or the CONTROL_REPO envionment variable." 1>&2
+    echo "$script: ERROR control_repo is not set. Use '-c' or the CONTROL_REPO environment variable." 1>&2
     exit 1
   fi
   install_module puppet/r10k
