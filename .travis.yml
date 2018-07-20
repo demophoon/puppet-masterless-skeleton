@@ -1,0 +1,9 @@
+language: bash
+
+sudo: false
+
+script:
+  - bash -c 'shopt -s globstar; shellcheck run-puppet'
+
+matrix:
+  fast_finish: true
