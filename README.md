@@ -11,13 +11,6 @@ Basic Instructions
 + Change the following files to point to _your_ forked Github repo.
   + Puppetfile
   + manifests/params.pp
-+ Add Puppet files (with a '.pp' suffix) to the `manifests` directory.
-+ Add `include` statements to the `site.pp` file to include the above
-Puppet files.
-+ Add any support files to the `files/<module>/<filename>` directory and
-reference them as `puppet:///modules/profiles/<module>/<filename>`. Example:
-    + Location in repo: `files/artifactory/some-random-file`
-    + Reference in Puppet code: `puppet:///modules/profiles/artifactory/some-random-file`
 + Download the `run-puppet` script to the machine you would like to manage
 with Puppet and ensure it is executable.
 +  Run the `run-puppet` script on a machine you would like to manage
@@ -25,18 +18,35 @@ with your new Puppet control repo.  Set the control repo with either the
 `CONTROL_REPO` environment variable or the `-c` flag:
     + `CONTROL_REPO=https://github.com/<YOUR_USERNAME_HERE>/puppet-masterless-skeleton ./run-puppet` _or_
     + `./run-puppet -c https://github.com/<YOUR_USERNAME_HERE>/puppet-masterless-skeleton`
-+ Use the `-n` argument to `run-puppet` to prevent `puppet/r10k` from
-being re-fetched.
+
+
+Classifying your environment
+----------------------------
+
++ Add Puppet files (with a '.pp' suffix) to the `manifests` directory.
++ Add `include` statements to the `site.pp` file to include the above
+Puppet files.
++ Add any support files to the `files/<module>/<filename>` directory and
+reference them as `puppet:///modules/profiles/<module>/<filename>`. Example:
+    + Location in repo: `files/artifactory/some-random-file`
+    + Reference in Puppet code: `puppet:///modules/profiles/artifactory/some-random-file`
+* Classify your infrastructure by adding nodes to `site.pp`
 + Commit and push Puppet code to your fork to manage the target machine
 with Puppet.
 
 
-Advanced
---------
+Extras
+------
+
 * Add defined roles under `manifests/roles` using the
 [Roles and Profiles](http://garylarizza.com/blog/2014/02/17/puppet-workflow-part-2/) pattern.
 * Add additional modules to `Puppetfile`.
-* Classify your infrastructure by adding nodes to `site.pp`
+* By default puppet is configured to automatically run every 30 minutes from
+the top of each hour. If you would like to manually kickoff a puppet run just
+rerun the `run-puppet` script on the machine you wish to run puppet on.
+* Use the `-n` argument to `run-puppet` to prevent `puppet/r10k` from
+being re-initialized.
+
 
 
 Running With Vagrant
