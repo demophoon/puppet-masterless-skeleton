@@ -34,4 +34,8 @@ class profiles::masterless (
     user    => 'root',
     *       => $run_cron,
   }
+  service {  'puppet':
+    ensure => stopped,
+    enable => false,
+  }
 }
