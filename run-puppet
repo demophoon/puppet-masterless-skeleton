@@ -44,7 +44,7 @@ function install_puppet() {
 }
 
 function install_module() {
-  $puppet module install $1
+  $puppet module install "$1"
 }
 
 function run_puppet() {
