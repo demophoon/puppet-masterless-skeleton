@@ -27,7 +27,7 @@ function install_puppet() {
     source /etc/os-release
     codename=$(lsb_release --codename | cut --fields=2)
     release_file="puppet-release-$codename.deb"
-    wget https://apt.puppetlabs.com/release_file
+    wget "https://apt.puppetlabs.com/$release_file"
     dpkg --install "$release_file"
     rm "$release_file"
     apt-get update
